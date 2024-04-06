@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import Web3 from 'web3';
-import ABI from '../../blogs.json';
-import { useLocation } from 'react-router-dom';
+import ABI from '../../Blog.json';
 
-const contractAddress = "0xa8205890dcf006cf801c01f664f2a5a528a27b3c";
+
+const contractAddress = "0x79e758a906c93cE0a316a75730FEd04778f6bD18";
 const abi = ABI;
 
 
