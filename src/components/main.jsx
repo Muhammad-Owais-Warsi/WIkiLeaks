@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import Web3 from 'web3';
-import ABI from '../../Blog.json';
+import ABI from '../../Blog.json'; // Import the ABI of your deployed smart contract
 
-// Update the contract address and ABI for the smart contract deployed on the XDC network
-const contractAddress = "0x8b772CD0F148B3c969FA9e2D2a5fC9c70b1Bc958";
-const abi = ABI;
+const contractAddress = "0x8b772CD0F148B3c969FA9e2D2a5fC9c70b1Bc958"; // Update with the correct contract address on XinFin network
+const abi = ABI; // Use the ABI imported from the JSON file
 
 export default function Main() {
     const [storeValue, setStoreValue] = useState([]);
@@ -16,41 +15,43 @@ export default function Main() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                if (window.ethereum) {
-                    // Initialize Web3 with the current provider (MetaMask)
-                    const web3 = new Web3(window.ethereum);
-                    // Request access to the user's MetaMask account
-                    await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    // Create a contract instance
-                    const contractInstance = new web3.eth.Contract(abi, contractAddress);
-                    setContract(contractInstance);
-                    // Call the contract function to get the value stored in the 'store' variable
-                    const value = await contractInstance.methods.getBlog().call();
-                    setStoreValue(value);
-                } else {
-                    throw new Error('MetaMask or an Ethereum provider is not detected');
-                }
+                // Connect to XinFin network using a Web3 provider
+                const web3 = new Web3('https://rpc.apothem.network');
+                
+                // Create a contract instance
+                const contractInstance = new web3.eth.Contract(abi, contractAddress);
+                setContract(contractInstance);
+
+                // Call the contract function to get the value stored in the 'store' variable
+                const value = await contractInstance.methods.getBlog().call();
+                setStoreValue(value);
             } catch (error) {
                 setError(error.message);
             }
         };
+
         fetchData();
     }, []);
 
     const upload = async () => {
         try {
+            // Ensure MetaMask is connected and authorized
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+
             // Call the contract method to create a new blog post
             await contract.methods.createBlog(title, body).send({ from: window.ethereum.selectedAddress });
-            // After successful upload, fetch the updated blog data
+
+            // Refresh the stored blog posts
             const updatedValue = await contract.methods.getBlog().call();
             setStoreValue(updatedValue);
-            // Clear the input fields after successful upload
-            setTitle('');
-            setBody('');
         } catch (error) {
             setError(error.message);
         }
     };
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
     return (
         <div>
@@ -59,14 +60,13 @@ export default function Main() {
             <input type="text" value={body} onChange={(e) => setBody(e.target.value)} placeholder="Body" />
             <button onClick={upload}>Upload Blog</button>
             <br />
-            {storeValue && storeValue.map((value, index) => (
+            {storeValue.map((value, index) => (
                 <ul key={index}>
-                    <li>Title: {value.title}</li>
-                    <li>Body: {value.body}</li>
-                    <li>Author: {value.author}</li>
+                    <li>{value.title}</li>
+                    <li>{value.body}</li>
+                    <li>{value.author}</li>
                 </ul>
             ))}
-            {error && <div>Error: {error}</div>}
         </div>
     );
 }
