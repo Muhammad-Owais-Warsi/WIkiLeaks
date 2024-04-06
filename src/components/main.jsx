@@ -1,30 +1,43 @@
 import { useEffect, useState } from 'react';
 import Web3 from 'web3';
-import ABI from '../../Blog.json'; // Import the ABI of your deployed smart contract
+import ABI from '../../blogs.json';
+import Card from './cards.jsx';
 
-const contractAddress = "0x8b772CD0F148B3c969FA9e2D2a5fC9c70b1Bc958"; // Update with the correct contract address on XinFin network
-const abi = ABI; // Use the ABI imported from the JSON file
+const contractAddress = "0xa8205890dcf006cf801c01f664f2a5a528a27b3c";
+const abi = ABI;
+
 
 export default function Main() {
     const [storeValue, setStoreValue] = useState([]);
     const [error, setError] = useState(null);
     const [contract, setContract] = useState(null);
-    const [title, setTitle] = useState('');
-    const [body, setBody] = useState('');
+
+    const [title, setTitle] = useState();
+    const [body, setBody] = useState()
+
+
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Connect to XinFin network using a Web3 provider
-                const web3 = new Web3('https://rpc.apothem.network');
-                
-                // Create a contract instance
-                const contractInstance = new web3.eth.Contract(abi, contractAddress);
-                setContract(contractInstance);
+                // Check if MetaMask or an Ethereum provider is available
+                if (window.ethereum) {
+                    // Initialize Web3 with the current provider
+                    const web3 = new Web3(window.ethereum);
 
-                // Call the contract function to get the value stored in the 'store' variable
-                const value = await contractInstance.methods.getBlog().call();
-                setStoreValue(value);
+                    // Request access to the user's MetaMask account
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+                    // Create a contract instance
+                    const contractInstance = new web3.eth.Contract(abi, contractAddress);
+                    setContract(contractInstance);
+
+                    // Call the contract function to get the value stored in the 'store' variable
+                    const value = await contractInstance.methods.getBlog().call();
+                    setStoreValue(value);
+                } else {
+                    throw new Error('MetaMask or an Ethereum provider is not detected');
+                }
             } catch (error) {
                 setError(error.message);
             }
@@ -34,20 +47,10 @@ export default function Main() {
     }, []);
 
     const upload = async () => {
-        try {
-            // Ensure MetaMask is connected and authorized
-            await window.ethereum.request({ method: 'eth_requestAccounts' });
+        await contract.methods.createBlog(title, body).send({ from: window.ethereum.selectedAddress })
+    }
 
-            // Call the contract method to create a new blog post
-            await contract.methods.createBlog(title, body).send({ from: window.ethereum.selectedAddress });
 
-            // Refresh the stored blog posts
-            const updatedValue = await contract.methods.getBlog().call();
-            setStoreValue(updatedValue);
-        } catch (error) {
-            setError(error.message);
-        }
-    };
 
     if (error) {
         return <div>Error: {error}</div>;
@@ -56,17 +59,19 @@ export default function Main() {
     return (
         <div>
             <h1>Smart Contract Interaction</h1>
-            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" />
-            <input type="text" value={body} onChange={(e) => setBody(e.target.value)} placeholder="Body" />
-            <button onClick={upload}>Upload Blog</button>
+            <input type="text" onChange={(e) => setTitle(e.target.value)} />
+            <input type="text" onChange={(e) => setBody(e.target.value)} />
+            <button onClick={upload}>upload Blog</button>
             <br />
-            {storeValue.map((value, index) => (
-                <ul key={index}>
-                    <li>{value.title}</li>
-                    <li>{value.body}</li>
-                    <li>{value.author}</li>
-                </ul>
-            ))}
+            {
+                storeValue && storeValue.map((value, index) => (
+                    <Card key={index} {...value} />
+                ))
+            }
+
+
+
         </div>
     );
 }
+
