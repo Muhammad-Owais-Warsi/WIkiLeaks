@@ -68,6 +68,7 @@ export default function Main() {
                     <ul key={index}>
                         <li>{value.title}</li>
                         <li>{value.body}</li>
+                        <li>{value.author}</li>
                     </ul>
                 ))
             }
