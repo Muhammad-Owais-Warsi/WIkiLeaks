@@ -15,6 +15,8 @@ export default function Main() {
   const state = useLocation();
   const account = state & state.meProp;
 
+  const [name,setName] = useState();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -47,7 +49,7 @@ export default function Main() {
   const setValue = async () => {
     try {
       // Call the contract function to set a new value
-      await contract.methods.set("owais").send({ from: window.ethereum.selectedAddress });
+      await contract.methods.set(name).send({ from: window.ethereum.selectedAddress });
 
       // Update the stored value
       const newValue = await contract.methods.get().call();
@@ -66,6 +68,7 @@ export default function Main() {
       <h1>Smart Contract Interaction</h1>
       Current address {account}
       <br></br>
+      <input type="text" onChange={(e) => setName(e.target.value)}/>
       <button onClick={setValue}>Set New Value</button>
       <p>Value stored in the contract: {storeValue}</p>
     </div>
