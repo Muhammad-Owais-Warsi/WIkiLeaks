@@ -65,6 +65,7 @@ export default function Main() {
     <div>
       <h1>Smart Contract Interaction</h1>
       Current address {account}
+      <br></br>
       <button onClick={setValue}>Set New Value</button>
       <p>Value stored in the contract: {storeValue}</p>
     </div>
