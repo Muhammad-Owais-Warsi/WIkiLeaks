@@ -7,6 +7,7 @@ const contractAddress = "0xa8205890dcf006cf801c01f664f2a5a528a27b3c";
 const abi = ABI;
 
 
+
 export default function Main() {
     const [storeValue, setStoreValue] = useState([]);
     const [error, setError] = useState(null);
@@ -51,6 +52,10 @@ export default function Main() {
     }
 
 
+    //PAYMENT
+
+
+
 
     if (error) {
         return <div>Error: {error}</div>;
@@ -85,15 +90,8 @@ export default function Main() {
                 </button>
             </div>
             <div className="max-w-xl w-full mx-auto mt-8 grid grid-cols-1 gap-4">
-                {storeValue.map((value, index) => (
-                    <div key={index} className="bg-white rounded-lg shadow-md p-4">
-                        <h2 className="text-xl font-semibold mb-2">{value.title}</h2>
-                        <p className="text-gray-600 text-sm mb-2">{value.body}</p>
-                        <div className="flex items-center justify-between text-gray-500 text-xs">
-                            <p>Author: {value.author}</p>
-                            <p>Date: {value.date}</p>
-                        </div>
-                    </div>
+                {storeValue && storeValue.map((value, index) => (
+                    <Card key={index} {...value} />
                 ))}
             </div>
         </div>
