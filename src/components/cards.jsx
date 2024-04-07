@@ -39,7 +39,12 @@ export default function Card(props) {
                 throw new Error('Payer address not found');
             }
 
-            await contract.methods.sendPayment(1, receiver).send({ from: payer });
+            // Validate the receiver address
+            if (!Web3.utils.isAddress(receiver)) {
+                throw new Error('Invalid receiver address');
+            }
+
+            await contract.methods.sendPayment(receiver).send({ from: payer, value: 1});
             // Display success message or update UI accordingly
         } catch (error) {
             setError(error.message);
