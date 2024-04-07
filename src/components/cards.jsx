@@ -56,7 +56,7 @@ export default function Card(props) {
             <h2 className="text-xl font-semibold mb-2">{props.title}</h2>
             <p className="text-gray-600 text-sm mb-2">{props.body}</p>
             <div className="flex items-center justify-between text-gray-500 text-xs">
-                <button value={props.author} onClick={() => sendPayment(props.author)}>Donate</button>
+                <button class="bg-gradient-to-r from-orange-500 to-orange-300 hover:from-orange-600 hover:to-orange-400 text-white font-semibold py-2 px-4 rounded" value={props.author} onClick={() => sendPayment(props.author)}>Donate</button>
                 <p>Date: {props.date}</p>
             </div>
             {error && <div className="text-red-500">{error}</div>}
