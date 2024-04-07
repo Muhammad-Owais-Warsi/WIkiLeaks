@@ -2,7 +2,7 @@ import Web3 from 'web3';
 import paymentsABI from '../../paymentAbi.json';
 import { useState, useEffect } from 'react';
 
-const PaymentAddress = "0x8b772CD0F148B3c969FA9e2D2a5fC9c70b1Bc958";
+const PaymentAddress = "0xb31847a9cf714eb79f1f29d2f8efc5d48ccc79d8";
 
 export default function Card(props) {
     const [contract, setContract] = useState(null);
@@ -44,7 +44,7 @@ export default function Card(props) {
                 throw new Error('Invalid receiver address');
             }
 
-            await contract.methods.sendPayment(receiver).send({ from: payer, value: 1});
+            await contract.methods.sendPayment(receiver,1).send({from:payer});
             // Display success message or update UI accordingly
         } catch (error) {
             setError(error.message);
