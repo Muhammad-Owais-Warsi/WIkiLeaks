@@ -32,7 +32,7 @@ export default function Login() {
   return (
     <>
       <div class="bg-[#03001C] h-screen">
-        <img src="../../public/b24f181b-b37b-4298-862d-145dea3ba89a.jpeg" alt="" />
+     
         <div class="flex justify-between  items-start">
           <div class="flex-col text-4xl mt-4 ml-4 font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-red-500">
             WikiLeaks

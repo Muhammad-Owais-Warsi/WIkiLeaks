@@ -2,7 +2,7 @@ import Web3 from 'web3';
 import paymentsABI from '../../paymentAbi.json';
 import { useState, useEffect } from 'react';
 
-const PaymentAddress = "0x8f01ee013392d343a858ae2c74878b8767550d2b";
+const PaymentAddress = "0x8b772CD0F148B3c969FA9e2D2a5fC9c70b1Bc958";
 
 export default function Card(props) {
     const [contract, setContract] = useState(null);
@@ -44,10 +44,7 @@ export default function Card(props) {
                 throw new Error('Invalid receiver address');
             }
 
-            // Convert the value to Wei
-            const valueInWei = Web3.utils.toWei('0.1', 'ether');
-
-            await contract.methods.sendPayment(receiver).send({ from: payer, value: valueInWei });
+            await contract.methods.sendPayment(receiver).send({ from: payer, value: 1});
             // Display success message or update UI accordingly
         } catch (error) {
             setError(error.message);
