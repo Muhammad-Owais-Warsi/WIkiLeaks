@@ -32,7 +32,7 @@ export default function Login() {
                     <div className="flex-row text-slate-50 text-sm">
                         <button
                             onClick={connect}
-                            className="h-10 w-32 bg-[#9400FF] hover:to-red-500 hover:bg-gradient-to-r hover:from-orange-400 hover:bg-clip-text hover:text-transparent text-[#AED2FF] mt-4 font-bold py-2 px-4 rounded-xl"
+                            className="h-10 w-32 mr-6 bg-[#9400FF] hover:to-red-500 hover:bg-gradient-to-r hover:from-orange-400 hover:bg-clip-text hover:text-transparent text-[#AED2FF] mt-4 font-bold py-2 px-4 rounded-xl"
                         >
                             Login
                         </button>
@@ -49,7 +49,7 @@ export default function Login() {
                     safeguarding the truth for the greater good. Join us in the fight
                     for transparency and accountability, where every voice matters.
                 </p>
-                <div className="flex justify-between items-start mt-10 ml-4">
+                <div className="flex justify-start items-start mt-10 ml-4">
                     <button
                         className="h-10 w-32 bg-[#9400FF] hover:to-red-500 hover:bg-gradient-to-r hover:from-orange-400 hover:bg-clip-text hover:text-transparent text-[#AED2FF] font-bold py-2 px-4 rounded-xl"
                         onClick={() => navigate("/explore")}
@@ -58,7 +58,7 @@ export default function Login() {
                     </button>
                     <button
                         
-                        className="h-10 w-32 bg-[#9400FF] hover:to-red-500 hover:bg-gradient-to-r hover:from-orange-400 hover:bg-clip-text hover:text-transparent text-[#AED2FF] font-bold py-2 px-4 rounded-xl relative"
+                        className="h-10 w-32 ml-4 bg-[#9400FF] hover:to-red-500 hover:bg-gradient-to-r hover:from-orange-400 hover:bg-clip-text hover:text-transparent text-[#AED2FF] font-bold py-2 px-4 rounded-xl"
                         onClick={() => navigate("/post")}
                     >
                         Post
