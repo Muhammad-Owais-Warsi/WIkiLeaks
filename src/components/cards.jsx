@@ -2,7 +2,7 @@ import Web3 from 'web3';
 import paymentsABI from '../../paymentAbi.json';
 import { useState, useEffect } from 'react';
 
-const PaymentAddress = "0x8b772CD0F148B3c969FA9e2D2a5fC9c70b1Bc958";
+const PaymentAddress = "0x8f01ee013392d343a858ae2c74878b8767550d2b";
 
 export default function Card(props) {
     const [contract, setContract] = useState(null);
