@@ -44,7 +44,10 @@ export default function Card(props) {
                 throw new Error('Invalid receiver address');
             }
 
-            await contract.methods.sendPayment(receiver).send({ from: payer, value: 1});
+            // Convert the value to Wei
+            const valueInWei = Web3.utils.toWei('0.1', 'ether');
+
+            await contract.methods.sendPayment(receiver).send({ from: payer, value: valueInWei });
             // Display success message or update UI accordingly
         } catch (error) {
             setError(error.message);
