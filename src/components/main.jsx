@@ -73,6 +73,7 @@ export default function Main() {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                     />
+                    
                 </div>
                 <div className="bg-gradient-to-r from-orange-400 to-red-500 p-4 rounded-lg shadow-md">
                     <textarea
