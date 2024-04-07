@@ -38,28 +38,30 @@ export default function Card(props) {
             if (!payer) {
                 throw new Error('Payer address not found');
             }
-
+    
             // Validate the receiver address
             if (!Web3.utils.isAddress(receiver)) {
                 throw new Error('Invalid receiver address');
             }
-
-            await contract.methods.sendPayment(receiver,1).send({from:payer});
+    
+            const amountToSend = Web3.utils.toWei('1', 'ether'); // Convert 1 ether to wei
+            await contract.methods.sendPayment(receiver, amountToSend).send({ from: payer });
             // Display success message or update UI accordingly
         } catch (error) {
             setError(error.message);
         }
     };
-
+    
+    
     return (
         <div className="bg-white rounded-lg shadow-md p-4">
             <h2 className="text-xl font-semibold mb-2">{props.title}</h2>
             <p className="text-gray-600 text-sm mb-2">{props.body}</p>
             <div className="flex items-center justify-between text-gray-500 text-xs">
-                <button class="bg-gradient-to-r from-orange-500 to-orange-300 hover:from-orange-600 hover:to-orange-400 text-white font-semibold py-2 px-4 rounded" value={props.author} onClick={() => sendPayment(props.author)}>Donate</button>
-                <p>Date: {props.date}</p>
+                <button className="bg-gradient-to-r from-orange-500 to-orange-300 hover:from-orange-600 hover:to-orange-400 text-white font-semibold py-2 px-4 rounded" onClick={() => sendPayment(props.author)}>Donate</button>
+                <p>Date: {props.timestamp}</p>
             </div>
-            {error && <div className="text-red-500">{error}</div>}
+            {props.error && <div className="text-red-500">{props.error}</div>}
         </div>
     );
 }

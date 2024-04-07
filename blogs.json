@@ -24,6 +24,12 @@
 				"internalType": "address",
 				"name": "author",
 				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
 			}
 		],
 		"name": "blogCreated",
@@ -71,6 +77,11 @@
 				"internalType": "address",
 				"name": "author",
 				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -96,6 +107,11 @@
 						"internalType": "address",
 						"name": "author",
 						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
 					}
 				],
 				"internalType": "struct BlogStorage.Blog[]",

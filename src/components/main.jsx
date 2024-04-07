@@ -3,7 +3,7 @@ import Web3 from 'web3';
 import ABI from '../../blogs.json';
 import Card from './cards.jsx';
 
-const contractAddress = "0xa8205890dcf006cf801c01f664f2a5a528a27b3c";
+const contractAddress = "0xf75363698f2fa9d880ceb023db788aeca5b837fe";
 const abi = ABI;
 
 
@@ -91,8 +91,9 @@ export default function Main() {
             </div>
             <div className="max-w-xl w-full mx-auto mt-8 grid grid-cols-1 gap-4">
                 {storeValue && storeValue.map((value, index) => (
-                    <Card key={index} {...value} />
+                    <Card key={index} {...value} timestamp={value.timestamp} />
                 ))}
+
             </div>
         </div>
     );
