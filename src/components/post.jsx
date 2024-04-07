@@ -6,9 +6,8 @@ import Card from './cards.jsx';
 const contractAddress = "0xa8205890dcf006cf801c01f664f2a5a528a27b3c";
 const abi = ABI;
 
+export default function Post() {
 
-
-export default function Main() {
     const [storeValue, setStoreValue] = useState([]);
     const [error, setError] = useState(null);
     const [contract, setContract] = useState(null);
@@ -52,17 +51,12 @@ export default function Main() {
     }
 
 
-    //PAYMENT
 
 
 
-
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
 
     return (
-        <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
+        <div className='min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4'>
             <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-400 to-red-500 mb-4">Create A Leak.</h1>
             <div className="max-w-xl w-full mx-auto grid grid-cols-1 gap-4">
                 <div className="bg-gradient-to-r from-orange-400 to-red-500 p-4 rounded-xl shadow-md">
@@ -89,19 +83,7 @@ export default function Main() {
                     Upload Leak.
                 </button>
             </div>
-            <div className="max-w-xl w-full mx-auto mt-8 grid grid-cols-1 gap-4">
-                {storeValue && storeValue.map((value, index) => {
-
-
-
-                    return (
-                        <Card key={index} {...value} timestamp={value.timestamp} />
-                    );
-                })}
-
-
-            </div>
         </div>
-    );
-}
 
+    )
+}
