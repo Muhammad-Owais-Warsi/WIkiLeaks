@@ -65,7 +65,7 @@ export default function Login() {
                     </button>
                 </div>
                 <marquee className="text-slate-50 mt-10" behavior="scroll" direction="left">
-                    Still in Development 💀💀💀
+                    Works currently on Sepolia TestNet only. Still in Development 💀💀💀
                 </marquee>
             </div>
         </>
